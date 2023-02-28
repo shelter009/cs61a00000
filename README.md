@@ -1,12 +1,11 @@
 # CS61a作业
 
 ## 设置代理
-### 设置全局代理
-//http
-  git config --global https.proxy http://127.0.0.1:1080
-//https  
+### 设置全局代理  
 
-  git config --global https.proxy https://127.0.0.1:1080
+  git config --global http.proxy http://127.0.0.1:7890 
+
+  git config --global https.proxy https://127.0.0.1:7890
 //使用socks5代理的 例如ss，ssr 1080是windows下ss的默认代理端口,mac下不同，或者有自定义的，根据自己的改  
 
   git config --global http.proxy socks5://127.0.0.1:1080  
