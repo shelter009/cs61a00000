@@ -77,6 +77,7 @@ def paths(m, n):
 
 
 def max_subseq(n, t):
+    #dont understand 
     """
     Return the maximum subsequence of length at most t that can be found in the given number n.
     For example, for n = 20125 and t = 3, we have that the subsequences are
@@ -158,4 +159,12 @@ def add_chars(w1, w2):
     True
     """
     "*** YOUR CODE HERE ***"
+    if len(w1) == 0:
+        return w2
+    elif len(w2) == 0:
+        return w2
+    elif w1[0] == w2[0]:
+        return add_chars(w1[1:],w2[1:]) 
+    else:
+        return w2[0] + add_chars(w1,w2[1:])
 
