@@ -75,6 +75,15 @@ def accuracy(typed, reference):
     reference_words = split(reference)
     # BEGIN PROBLEM 3
     "*** YOUR CODE HERE ***"
+    count = 0
+    if typed_words == [] or reference_words == []:
+        return 0.0
+    else:
+        for i, word in enumerate(typed_words[:min(len(typed_words),len(reference_words))]):
+            if word == reference_words[i]:
+                count += 1
+        return count/len(typed_words)*100
+
     # END PROBLEM 3
 
 
