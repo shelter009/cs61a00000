@@ -103,7 +103,8 @@ def max_subseq(n, t):
         225
         012
         015
-        025
+        025Q5: Maximum Subsequence
+A subsequence of a number is a series of (not necessarily contiguous) digits of the number. For example, 12345 has subsequences that include 123, 234, 124, 245, etc. Your task is to get the maximum subsequence below a certain length.
         125
     and of these, the maxumum number is 225, so our answer is 225.
 
@@ -121,6 +122,13 @@ def max_subseq(n, t):
     5
     """
     "*** YOUR CODE HERE ***"
+    if t == 0:
+        return 0
+    elif n < 10:
+        return n
+    else:
+        return max(max_subseq(n // 10, t - 1) * 10 + n % 10, max_subseq(n // 10, t))
+
 
 
 def add_chars(w1, w2):
