@@ -17,6 +17,14 @@ def choose(paragraphs, select, k):
     """
     # BEGIN PROBLEM 1
     "*** YOUR CODE HERE ***"
+    p = []
+    for paragraph in paragraphs:
+        if select(paragraph) == True:
+            p.append(paragraph)
+    if k+1 > len(p):
+        return ''
+    else:
+        return p[k]
     # END PROBLEM 1
 
 
@@ -33,6 +41,16 @@ def about(topic):
     assert all([lower(x) == x for x in topic]), 'topics should be lowercase.'
     # BEGIN PROBLEM 2
     "*** YOUR CODE HERE ***"
+    def is_about(p):
+        new_p = []
+        new_p = split(lower(remove_punctuation(p)))
+        for i in topic:
+            for j in new_p:
+                if lower(i) == j:
+                    return True
+        return False
+
+    return is_about
     # END PROBLEM 2
 
 
