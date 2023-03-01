@@ -92,6 +92,7 @@ def wpm(typed, elapsed):
     assert elapsed > 0, 'Elapsed time must be positive'
     # BEGIN PROBLEM 4
     "*** YOUR CODE HERE ***"
+    return round(len(typed)/(5*(elapsed/60)),2)
     # END PROBLEM 4
 
 
@@ -102,6 +103,24 @@ def autocorrect(user_word, valid_words, diff_function, limit):
     """
     # BEGIN PROBLEM 5
     "*** YOUR CODE HERE ***"
+    min_limit = limit
+    min_n = ''
+    count = 0
+    for i in valid_words:
+        if user_word == i:
+            return user_word
+        else:
+            if diff_function(user_word,i,limit) < min_limit:
+                min_limit =  diff_function(user_word,i,limit)
+                min_n = i
+                count += 1
+    if count == 0:
+        return user_word
+    else:
+        return min_n
+
+            
+
     # END PROBLEM 5
 
 
