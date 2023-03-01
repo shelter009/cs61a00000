@@ -130,7 +130,18 @@ def shifty_shifts(start, goal, limit):
     their lengths.
     """
     # BEGIN PROBLEM 6
-    assert False, 'Remove this line'
+    #assert False, 'Remove this line'
+    if limit < 0:
+        return 0
+    if len(start) == 1 or len(goal) == 1:
+        if start[0] != goal[0]:
+            return 1 + abs(len(start) - len(goal))
+        else:
+            return abs(len(start) - len(goal))
+    if start[0] != goal[0]:
+        return 1 + shifty_shifts(start[1:],goal[1:],limit-1)
+    if start[0] == goal[0]:
+        return shifty_shifts(start[1:],goal[1:],limit)
     # END PROBLEM 6
 
 
