@@ -225,6 +225,7 @@ def fastest_words(game):
     "*** YOUR CODE HERE ***"
     result = []
     fastests = []
+    
     for word in word_indices:
         min_time = []
         for player in player_indices:
@@ -236,8 +237,8 @@ def fastest_words(game):
             else time(game,player,word) = min_time[-1]:
                 min_time.append(player)
          
-         fastest = []
          for i in player_dices:
+             fastest = []
              if i in min_time:
                  fastest.append(word)
              fastests.append(fastest)
