@@ -131,7 +131,7 @@ def shifty_shifts(start, goal, limit):
     """
     # BEGIN PROBLEM 6
     #assert False, 'Remove this line'
-    if limit < 0:
+    if limit < 0:    #limit == 0 return 1
         return 0
     if len(start) == 1 or len(goal) == 1:
         if start[0] != goal[0]:
@@ -147,26 +147,32 @@ def shifty_shifts(start, goal, limit):
 
 def pawssible_patches(start, goal, limit):
     """A diff function that computes the edit distance from START to GOAL."""
-    assert False, 'Remove this line'
+    #assert False, 'Remove this line'
 
-    if ______________: # Fill in the condition
+    if limit < 0: # Fill in the condition
         # BEGIN
         "*** YOUR CODE HERE ***"
+        return 0
         # END
+    
+    elif start == '' or goal == '':
+        return len(start) + len(goal)
 
-    elif ___________: # Feel free to remove or add additional cases
+    elif start[0] == goal[0]: # Feel free to remove or add additional cases
         # BEGIN
         "*** YOUR CODE HERE ***"
+        
+        return pawssible_patches(start[1:], goal[1:], limit)
         # END
 
     else:
-        add_diff = ... # Fill in these lines
-        remove_diff = ...
-        substitute_diff = ...
+        add_diff = pawssible_patches(start, goal[1:], limit - 1) + 1 # Fill in these lines
+        remove_diff = pawssible_patches(start[1:], goal, limit - 1) + 1
+        substitute_diff =pawssible_patches(start[1:], goal[1:], limit - 1) + 1
         # BEGIN
         "*** YOUR CODE HERE ***"
+        return min(add_diff, remove_diff, substitute_diff)
         # END
-
 
 def final_diff(start, goal, limit):
     """A diff function. If you implement this function, it will be used."""
@@ -182,6 +188,20 @@ def report_progress(typed, prompt, user_id, send):
     """Send a report of your id and progress so far to the multiplayer server."""
     # BEGIN PROBLEM 8
     "*** YOUR CODE HERE ***"
+    count = 0
+    progress = 0
+    a = {}
+    for i,word in enumerate(typed):
+        if word == prompt[i]:
+            count += 1
+        else:
+            break
+    progress = count/len(prompt)
+    a['id'] = user_id
+    a['progress'] = progress
+    send(a)
+    #print('ID:',a['id'],'Progress:',a['progress'])
+    print(a['progress'])
     # END PROBLEM 8
 
 
@@ -208,6 +228,13 @@ def time_per_word(times_per_player, words):
     """
     # BEGIN PROBLEM 9
     "*** YOUR CODE HERE ***"
+    times = []
+    for i in times_per_player:
+        time = []
+        for j in range(1,len(i)):
+            time.append(i[j]-i[j-1])
+        times.append(time)
+    return game(words,times)
     # END PROBLEM 9
 
 
@@ -223,6 +250,7 @@ def fastest_words(game):
     word_indices = range(len(all_words(game)))    # contains an *index* for each word
     # BEGIN PROBLEM 10
     "*** YOUR CODE HERE ***"
+
     # END PROBLEM 10
 
 
