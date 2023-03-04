@@ -1,10 +1,11 @@
-times = []
+import random
+result = []
+def avanage_score(count):
 
-times_per_player = [[1, 4, 6, 7], [0, 4, 6, 9]]
-for i in times_per_player:
-    time = []
-    for j in range(1,len(i)):
-        time.append(i[j]-i[j-1])
-    #print(time)
-    times.append(time)
-print(times)
+    if count < 15:
+        return result.append(count) 
+    else:
+        a = random.randint(15,20)
+        return result.append(avanage_score(count - a))
+avanage_score(100)
+print(result)

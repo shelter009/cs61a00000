@@ -250,6 +250,21 @@ def fastest_words(game):
     word_indices = range(len(all_words(game)))    # contains an *index* for each word
     # BEGIN PROBLEM 10
     "*** YOUR CODE HERE ***"
+    min=10000
+    count_fastest_list=[]
+    for i in player_indices:
+        count_fastest_list=count_fastest_list+[[]]
+    for j in word_indices:
+        min=100000
+        for m in player_indices:
+                if time(game,m,j) <=min:
+                    min =time(game,m,j)
+        for index in player_indices:
+                if time(game,index,j)==min:
+                    break
+        count_fastest_list[index]=count_fastest_list[index] +[word_at(game,j)]
+
+    return count_fastest_list    
 
     # END PROBLEM 10
 
