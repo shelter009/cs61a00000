@@ -1,5 +1,7 @@
-a = []
-for num in range(4):
-    if num == 2:
-        break
-print(num)
+a = 2
+def abc(a):
+    b = 1
+    if a > b:
+        print('T')
+abc(1)
+print(a)
