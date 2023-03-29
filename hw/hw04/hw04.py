@@ -20,6 +20,18 @@ def make_bank(balance):
     """
     def bank(message, amount):
         "*** YOUR CODE HERE ***"
+        nonlocal balance
+        if message == "deposit":
+            balance += amount 
+            return balance
+        if message == "withdraw":
+            if balance < amount:
+                return 'Insufficient funds'
+            else:
+                balance -= amount
+                return balance
+        else:
+            return 'Invalid message'
     return bank
 
 
@@ -52,8 +64,23 @@ def make_withdraw(balance, password):
     True
     """
     "*** YOUR CODE HERE ***"
-
-
+    fail_try = []
+    incorrect_num = 0
+    def withdraw(amount,code):
+        nonlocal password,incorrect_num,balance,fail_try
+        if incorrect_num >=3 :
+            return "Frozen account. Attempts: " + str(fail_try)
+        if code != password:
+            incorrect_num += 1
+            fail_try.append(code)
+            return 'Incorrect password'
+        if code == password:
+            if balance < amount:
+                return 'Insufficient funds'
+            else:
+                balance -= amount
+                return balance
+    return withdraw
 def repeated(t, k):
     """Return the first value in iterator T that appears K times in a row. Iterate through the items such that
     if the same iterator is passed into repeated twice, it continues in the second call at the point it left off
@@ -76,6 +103,18 @@ def repeated(t, k):
     """
     assert k > 1
     "*** YOUR CODE HERE ***"
+    x = -100
+    num = 1
+    for i in t:
+        if i == x:
+            num += 1
+        else:
+            num = 1
+        if num == k:
+            return i
+        x = i
+
+
 
 
 def permutations(seq):
