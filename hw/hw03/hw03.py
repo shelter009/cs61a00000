@@ -44,11 +44,13 @@ def planet(size):
     """Construct a planet of some size."""
     assert size > 0
     "*** YOUR CODE HERE ***"
+    return ['planet', size]
 
 def size(w):
     """Select the size of a planet."""
     assert is_planet(w), 'must call size on a planet'
     "*** YOUR CODE HERE ***"
+    return w[1]
 
 def is_planet(w):
     """Whether w is a planet."""
@@ -105,6 +107,11 @@ def balanced(m):
     True
     """
     "*** YOUR CODE HERE ***"
+    if is_planet(m):
+        return True
+    l, r = end(left(m)), end(right(m))
+    return balanced(l) and balanced(r) and total_weight(l) * length(left(m)) == total_weight(r) * length(right(m))
+
 
 def totals_tree(m):
     """Return a tree representing the mobile with its total weight at the root.
@@ -136,7 +143,10 @@ def totals_tree(m):
     True
     """
     "*** YOUR CODE HERE ***"
-
+    if is_planet(m):
+        return tree(total_weight(m))
+    return tree(total_weight(m), [totals_tree(end(left(m))), totals_tree(end(right(m)))])
+    
 
 def replace_leaf(t, find_value, replace_value):
     """Returns a new tree where every leaf value equal to find_value has
@@ -168,7 +178,13 @@ def replace_leaf(t, find_value, replace_value):
     True
     """
     "*** YOUR CODE HERE ***"
-
+    if is_leaf(t):
+        if label(t) == find_value:
+            return tree(replace_value)
+        else:
+            return tree(label(t))
+    else:
+        return tree(label(t),[replace_leaf(b, find_value, replace_value) for b in branches(t)])
 
 def preorder(t):
     """Return a list of the entries in this tree in the order that they
@@ -181,7 +197,8 @@ def preorder(t):
     [2, 4, 6]
     """
     "*** YOUR CODE HERE ***"
-
+    return [label(t)] + sum([preorder(b) for b in branches(t)],[])
+    
 
 def has_path(t, word):
     """Return whether there is a path in a tree where the entries along the path
@@ -213,6 +230,13 @@ def has_path(t, word):
     """
     assert len(word) > 0, 'no path for empty word.'
     "*** YOUR CODE HERE ***"
+    if len(word) == 1:
+        return word[0] == label(t)
+    if word[0] == label(t):
+        for i in branches(t):
+            if has_path(i,word[1:]) == True:
+                return True
+    return False
 
 
 def interval(a, b):
@@ -222,10 +246,12 @@ def interval(a, b):
 def lower_bound(x):
     """Return the lower bound of interval x."""
     "*** YOUR CODE HERE ***"
+    return x[0]
 
 def upper_bound(x):
     """Return the upper bound of interval x."""
     "*** YOUR CODE HERE ***"
+    return x[1]
 def str_interval(x):
     """Return a string representation of interval x.
     """
@@ -240,17 +266,23 @@ def add_interval(x, y):
 def mul_interval(x, y):
     """Return the interval that contains the product of any value in x and any
     value in y."""
-    p1 = x[0] * y[0]
-    p2 = x[0] * y[1]
-    p3 = x[1] * y[0]
-    p4 = x[1] * y[1]
-    return [min(p1, p2, p3, p4), max(p1, p2, p3, p4)]
+    p1 =  lower_bound(x) * lower_bound(y)
+    p2 = lower_bound(x) * upper_bound(y)
+    p3 = upper_bound(x) * lower_bound(y)
+    p4 = upper_bound(x) * upper_bound(y)
+    return interval(min(p1, p2, p3, p4), max(p1, p2, p3, p4))
 
 
 def sub_interval(x, y):
     """Return the interval that contains the difference between any value in x
     and any value in y."""
     "*** YOUR CODE HERE ***"
+    p1 =  lower_bound(x) - lower_bound(y)
+    p2 = lower_bound(x) - upper_bound(y)
+    p3 = upper_bound(x) - lower_bound(y)
+    p4 = upper_bound(x) - upper_bound(y)
+    return interval(min(p1, p2, p3, p4), max(p1, p2, p3, p4))
+
 
 
 def div_interval(x, y):
@@ -258,6 +290,7 @@ def div_interval(x, y):
     any value in y. Division is implemented as the multiplication of x by the
     reciprocal of y."""
     "*** YOUR CODE HERE ***"
+    assert lower_bound(y) * upper_bound(y) > 0
     reciprocal_y = interval(1/upper_bound(y), 1/lower_bound(y))
     return mul_interval(x, reciprocal_y)
 
@@ -345,7 +378,11 @@ def print_tree(t, indent=0):
     >>> print_tree(numbers)
     1
       2
-      3
+      3if is_planet(m):
+        return True
+    l, r = end(left(m)), end(right(m))
+    return balanced(l) and balanced(r) and total_weight(l) * length(left(m)) == total_weight(r) * length(right(m))
+
         4
         5
       6
