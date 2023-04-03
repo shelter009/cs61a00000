@@ -1,4 +1,8 @@
 def abc():
-    yield from[1,2,3,4]
+    i  = 0
+    while(i < 10):
+        yield i
+        i += 1
 a = abc()
-print(next(a))
+for i in a:
+    print(i)
